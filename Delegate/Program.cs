@@ -14,6 +14,7 @@ namespace Delegate
         public delegate Тип_возвращаемого_значения имя_делегата(тип_аргумента аргумент);
         static void Main(string[] args)
         {
+            Console.Write("Hello World");
         }
     }
 }
