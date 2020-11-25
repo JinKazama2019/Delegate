@@ -44,29 +44,48 @@ namespace Delegate
             valueDelegate += Method2;//17
             valueDelegate += Method2;// значение будет возвращено только от этого(если например здесь число 17 то и в других методах будет 17)
             valueDelegate((new Random()).Next(10, 50));// передаем в делегат случайное значение от 10 до 50
-
+            Console.WriteLine("-----------------------------------------");
             // шаблонный делегат(не возращает значения)
-           // по сигнатуре полностью совпадает с  public delegate void MyDelegate();
-           // Action - это заготовка делегата
-           //public delegate void Action(); можно не объявлять вручную, а сразу обращаться по имени Action(он уже по умолчанию создан)
-           //Action - это делегат который не возвращает значения, но может принимать от 0 до 16 аргументов(параметров)
-             Action actionDelegate = Method1;
+            // по сигнатуре полностью совпадает с  public delegate void MyDelegate();
+            // Action - это заготовка делегата
+            //public delegate void Action(); можно не объявлять вручную, а сразу обращаться по имени Action(он уже по умолчанию создан)
+            //Action - это делегат который не возвращает значения, но может принимать от 0 до 16 аргументов(параметров)
+            Action actionDelegate = Method1;
             // если хотим сделать  Action с аргументом(параметром), то мы указываем тип
             //public delegate void Action(int i);
             //Action<int> actionDelegate = Method1;// не возвращает ни одного значения, но принимает один параметр
             //public delegate void Action(int i, int j, string H);
             //Action<int, int, string> actionDelegate = Method1;// не возвращает ни одного значения, но принимает три параметра
             actionDelegate();
-
+            Console.WriteLine("-----------------------------------------");
             //public delegate bool Predicate<T>(T value)
             //Делегат Predicate<T>, как правило, используется для сравнения, сопоставления некоторого объекта T определенному условию. 
             //В качестве выходного результата возвращается значение true, если условие соблюдено, и false, если не соблюдено
             //public delegate bool Predicate(int value) используется уже сокращенная форма как ниже
-            Predicate<int> predicate;
+            Predicate<int> predicate= Method5;
+            predicate(5);
+            Console.WriteLine("-----------------------------------------");
             Predicate<int> isPositive = delegate (int x) { return x > 0; };
 
             Console.WriteLine(isPositive(20));
             Console.WriteLine(isPositive(-20));
+            Console.WriteLine("-----------------------------------------");
+
+            //public delegate int Func(); ниже сокращенная форма по умолчанию, может не принимать параметров, а может до 16
+            // Func в любом случае возвращает какое-то значение
+            Func<int> func;
+            //public delegate int Func(string value); ниже сокращенная форма по умолчанию
+            // последним параметром задается возвращаемый тип
+            Func<string,int> func1;
+            //public delegate int Func(string str, char c); ниже сокращенная форма по умолчанию
+            Func<string, char, int> func2;
+
+            Func<int, int> func3 = Method2;
+            // 2 строчки ниже можно сократить
+            //if(func3!=null) // проверка есть ли в нем какие-то методы
+            //func3(7);
+            func3?.Invoke(7);
+
 
             Console.ReadLine();
         }
@@ -80,6 +99,11 @@ namespace Delegate
         {
             Console.WriteLine(i);
             return i;
+        } 
+        public static bool Method5(int i)
+        {
+            Console.WriteLine(i);
+            return i>0;
         }
         public static void Method3(int i)
         {
